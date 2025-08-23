@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SDK — Typewriter</title>
+  <!-- Police symboles (fallbacks inclus) -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#fff; --fg:#000; --muted:#00000099 }
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      display:grid; place-items:center; min-height:100vh;
+      font-family: 'Noto Sans Symbols 2', 'Segoe UI Symbol', Symbol, monospace;
+    }
+    .wrap{ width:min(900px, 90vw); }
+    .line{ font-size: clamp(18px, 5vw, 42px); line-height:1.25; letter-spacing:.04em; }
+    .cursor{ display:inline-block; width:.6ch; }
+    .cursor::after{
+      content:""; display:inline-block; width:2px; height:1em; vertical-align:-.1em;
+      background:var(--fg);
+      animation: blink .9s steps(1) infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .hint{ margin-top:1rem; font-size:.9rem; color:var(--muted); user-select:none }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="line"><span id="text"></span><span class="cursor"></span></div>
+    <div class="hint"></div>
+  </div>
+
+  <script>
+
+    const PHRASES = [
+      "⟡ ∴ ∵ ϟ Ϟ ϟ",
+      "⟁ FRΛCTΛL GATE ⟁",
+      "↯ SDKCODX ↯"
+    ];
+
+    const TYPE_MS = 50;     
+    const HOLD_MS = 1200;  
+    const ERASE_MS = 30;   
+    const GAP_MS = 350;    
+
+    const el = document.getElementById('text');
+
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    async function typeOnce(str){
+      el.textContent = "";
+      for (let ch of str){ el.textContent += ch; await sleep(TYPE_MS); }
+      await sleep(HOLD_MS);
+      for (let i=str.length; i>0; i--){ el.textContent = str.slice(0, i-1); await sleep(ERASE_MS); }
+      await sleep(GAP_MS);
+    }
+
+    async function loop(){
+      let i=0;
+      while(true){
+        const s = PHRASES[i % PHRASES.length];
+        await typeOnce(s);
+        i++;
+      }
+    }
+
+    loop();
+  </script>
+</body>
+</html>
