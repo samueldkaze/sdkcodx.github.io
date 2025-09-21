@@ -3,170 +3,157 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>KONTROL — New Moon Release</title>
-<meta name="description" content="KONTROL — first single by Samuel D. Kaze. New Moon Release in October."/>
+<title>FRACTAL — New Moon Protocol</title>
 <style>
   :root{
-    --bg:#000000; --ink:#e6e6e6; --muted:#8b8f98; --hl:#b8f; --ok:#00d1a0;
-    --mx:50%; --my:40%; /* mouse coords for spotlight */
+    --bg:#020502; --ink:#00ff00; --muted:#006600; --hl:#8000ff;
+    --mx:50%; --my:40%;
   }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
-    margin:0; background: #000; color:var(--ink);
-    font:16px/1.45 Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+    margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.45 'Courier New', monospace;
     overflow-x:hidden;
   }
-
-  /* HERO */
   .hero{
     min-height:100svh; display:grid; place-items:center;
     background:
-      radial-gradient(1600px 900px at 50% -10%, #0b0b12 0%, #020205 55%, #000 100%),
+      radial-gradient(1600px 900px at 50% -10%, #030803 0%, #020202 55%, #000 100%),
       #000;
     position:relative; text-align:center;
   }
-
-  /* Spotlight effect that follows the mouse (masking the hero stack) */
   .stack{
     position:relative; padding:48px 20px;
-    --r: 300px;
-    -webkit-mask-image: radial-gradient(var(--r) var(--r) at var(--mx) var(--my), rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.9) 60%, rgba(255,255,255,0.2) 78%, rgba(255,255,255,0.02) 100%);
-    mask-image: radial-gradient(var(--r) var(--r) at var(--mx) var(--my), rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.9) 60%, rgba(255,255,255,0.2) 78%, rgba(255,255,255,0.02) 100%);
-    transition: mask-image .25s ease, -webkit-mask-image .25s ease;
+    --r: 200px;
+    -webkit-mask-image: radial-gradient(var(--r) var(--r) at var(--mx) var(--my), rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 70%, rgba(255,255,255,0.01) 100%);
+    mask-image: radial-gradient(var(--r) var(--r) at var(--mx) var(--my), rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 70%, rgba(255,255,255,0.01) 100%);
+    transition: mask-image .5s ease, -webkit-mask-image .5s ease;
   }
-
   .logo{
-    font-size: clamp(46px, 12vw, 132px);
-    font-weight:900; letter-spacing:.12em; text-transform:uppercase; line-height:.92; margin:0;
-    background: linear-gradient(180deg, #fff 0%, #bfc4e6 100%);
-    -webkit-background-clip: text; background-clip:text; color:transparent;
-    text-shadow: 0 10px 30px rgba(184,136,255,.20);
+    font-size: clamp(40px, 12vw, 132px);
+    font-weight:700; letter-spacing:.2em; text-transform:uppercase; line-height:.9; margin:0;
+    text-shadow: 0 0 10px var(--ink), 0 0 20px var(--ink), 0 0 30px var(--ink);
     will-change: transform, text-shadow;
   }
-
+  .logo::before{
+    content:attr(data-text); position:absolute; left:50%; top:50%; transform:translate(-50%, -50%);
+    color:transparent; -webkit-text-stroke:1px var(--ink);
+    animation: glitch 2s infinite;
+  }
+  @keyframes glitch{
+    0% { clip-path: inset(10% 0 80% 0); }
+    15% { clip-path: inset(0 0 90% 0); }
+    30% { clip-path: inset(20% 0 70% 0); }
+    45% { clip-path: inset(5% 0 85% 0); }
+    60% { clip-path: inset(30% 0 60% 0); }
+    75% { clip-path: inset(0 0 100% 0); }
+    100% { clip-path: inset(10% 0 80% 0); }
+  }
   .sub{
     margin-top:8px; color:var(--muted); letter-spacing:.14em; text-transform:uppercase;
   }
-
-  /* Info row */
   .row{
     display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:18px;
     font-variant-numeric: tabular-nums;
   }
   .pill{
-    padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.12);
-    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.015));
+    padding:8px 12px; border-radius:4px; border:1px solid var(--muted);
+    background:rgba(0,102,0,.1);
   }
-  .pill.ok{ background: linear-gradient(180deg, rgba(0,209,160,.18), rgba(0,209,160,.06)); border-color:rgba(0,209,160,.35) }
-
-  /* Countdown tiles */
-  .count{ display:flex; gap:12px; justify-content:center; margin-top:16px }
+  .pill.ok{ background:rgba(0,255,0,.15); border-color:var(--ink) }
+  .count{ display:flex; gap:8px; justify-content:center; margin-top:16px }
   .tile{
-    min-width:90px; padding:12px 10px; border-radius:16px;
-    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-    border:1px solid rgba(255,255,255,.12);
+    min-width:70px; padding:10px 8px; border-radius:4px;
+    background:rgba(0,102,0,.1);
+    border:1px solid var(--muted);
   }
-  .num{ font-size: clamp(30px, 6vw, 44px); font-weight:800 }
-  .lab{ font-size:.85rem; color:var(--muted) }
-
+  .num{ font-size: clamp(24px, 6vw, 40px); font-weight:800; text-shadow:0 0 5px var(--ink) }
+  .lab{ font-size:.75rem; color:var(--muted); text-transform:uppercase }
   .cta{
-    margin-top:22px; display:inline-flex; gap:10px; align-items:center;
-    padding:12px 18px; border-radius:999px; text-decoration:none; font-weight:800;
-    background:linear-gradient(90deg, #1d1c28, #2b2a3a); color:#fff;
-    border:1px solid rgba(255,255,255,.15);
+    margin-top:20px; display:inline-flex; gap:8px; align-items:center;
+    padding:10px 16px; border-radius:4px; text-decoration:none; font-weight:800;
+    background:var(--hl); color:var(--bg);
+    border:1px solid var(--ink);
   }
-  .cta strong{ color:var(--hl) }
-
-  /* Ticker (appears when you scroll or press the button) */
   .ticker-wrap{
-    position:sticky; bottom:0; inset-inline:0; height:56px; overflow:hidden;
+    position:sticky; bottom:0; inset-inline:0; height:48px; overflow:hidden;
     transform: translateY(100%); transition: transform .6s ease; z-index:10;
     pointer-events:none;
   }
   .ticker-wrap.on{ transform: translateY(0%); }
   .ticker{
-    display:flex; align-items:center; gap:40px; height:56px; white-space:nowrap;
-    background:#000; border-top:1px solid rgba(255,255,255,.15);
-    box-shadow:0 -8px 30px rgba(0,0,0,.45);
-    animation: slide 18s linear infinite;
+    display:flex; align-items:center; gap:20px; height:48px; white-space:nowrap;
+    background:rgba(0,0,0,.8); border-top:1px solid var(--ink);
+    animation: slide 15s linear infinite;
   }
-  .tag{ color:#000; font-weight:900; background:var(--ok); padding:4px 10px; border-radius:999px; margin:0 8px 0 16px }
-  .msg{ color:#fff; letter-spacing:.08em }
+  .tag{ color:var(--bg); font-weight:700; background:var(--ink); padding:4px 8px; border-radius:2px; margin:0 4px 0 12px }
+  .msg{ color:var(--ink); letter-spacing:.1em }
   @keyframes slide{ to{ transform: translateX(-50%); } }
-
-  /* Spacer to enable scroll */
-  .spacer{ height:130svh; background: linear-gradient(180deg, transparent, rgba(255,255,255,.02), transparent) }
-
-  /* Small screens */
-  @media (max-width:480px){ .tile{ min-width:76px } }
+  .spacer{ height:130svh; background: linear-gradient(180deg, transparent, rgba(0,255,0,.02), transparent) }
+  @media (max-width:480px){ .tile{ min-width:60px } }
 </style>
 </head>
 <body>
 
 <section class="hero" id="hero" aria-labelledby="title">
   <div class="stack" id="stack">
-    <h1 class="logo" id="title">KONTROL</h1>
-    <div class="sub">NEW MOON RELEASE — OCTOBER</div>
+    <h1 class="logo" id="title" data-text="KONTROL">KONTROL</h1>
+    <div class="sub">PROTOCOL BETA — OCTOBER</div>
 
     <div class="row">
-      <div class="pill">Exact date: <span id="nm-date">—</span></div>
-      <div class="pill ok" id="nm-badge">Anchor: New Moon</div>
+      <div class="pill">Date: <span id="nm-date">—</span></div>
+      <div class="pill ok" id="nm-badge">Anchor: NM</div>
     </div>
 
     <div class="count" role="timer" aria-live="polite" id="count">
-      <div class="tile"><div class="num" id="d">00</div><div class="lab">Days</div></div>
-      <div class="tile"><div class="num" id="h">00</div><div class="lab">Hours</div></div>
-      <div class="tile"><div class="num" id="m">00</div><div class="lab">Minutes</div></div>
-      <div class="tile"><div class="num" id="s">00</div><div class="lab">Seconds</div></div>
+      <div class="tile"><div class="num" id="d">00</div><div class="lab">DAYS</div></div>
+      <div class="tile"><div class="num" id="h">00</div><div class="lab">HOURS</div></div>
+      <div class="tile"><div class="num" id="m">00</div><div class="lab">MINS</div></div>
+      <div class="tile"><div class="num" id="s">00</div><div class="lab">SECS</div></div>
     </div>
 
     <a href="#" class="cta" id="revealBtn" aria-controls="ticker" aria-expanded="false">
-      Show announcement <strong>banner</strong>
+      INITIATE PROTOCOL
     </a>
   </div>
 </section>
 
 <section class="spacer" aria-hidden="true"></section>
 
-<!-- Sticky ticker revealed on scroll or click -->
 <div class="ticker-wrap" id="ticker" role="region" aria-label="Release announcement">
   <div class="ticker">
-    <span class="tag">NEW MOON</span>
-    <span class="msg">KONTROL — FIRST SINGLE — NEW MOON RELEASE — OCTOBER — SAVE THE DATE</span>
-    <span class="tag">NEW MOON</span>
-    <span class="msg">KONTROL — FIRST SINGLE — NEW MOON RELEASE — OCTOBER — SAVE THE DATE</span>
+    <span class="tag">01001111</span>
+    <span class="msg">KONTROL 01101011 01100001 01111010 01100101 00100000 01110011 01101001 01101110 01100111 01101100 01100101</span>
+    <span class="tag">01001111</span>
+    <span class="msg">KONTROL 01101011 01100001 01111010 01100101 00100000 01110011 01101001 01101110 01100111 01101100 01100101</span>
   </div>
 </div>
 
 <script>
-/* ===== Moon epoch/approx (synodic) ===== */
-const SYNODIC = 29.530588853; // days
-const EPOCH_MS = Date.UTC(2000,0,6,18,14,0); // near new moon
+/* JS pour la variante "glitch" */
+const SYNODIC = 29.530588853;
+const EPOCH_MS = Date.UTC(2000,0,6,18,14,0);
 const pad2 = n => n.toString().padStart(2,"0");
 const fmtLocal = d => `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())} ${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
 const dKey = d => `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
 function daysSinceEpochUTC(date){ const ms = date instanceof Date ? date.getTime() : date; return (ms - EPOCH_MS)/86400000; }
 function phaseFraction(date){ let f = (daysSinceEpochUTC(date)/SYNODIC) % 1; return f<0?f+1:f; }
 function moonAge(date){ return phaseFraction(date)*SYNODIC; }
-
-/* Last New Moon of October (local display) */
 function lastNewMoonOfOctober(year){
-  const start = new Date(Date.UTC(year, 9, 1, 0, 0, 0));  // Oct 1 UTC
-  const end   = new Date(Date.UTC(year,10, 1, 0, 0, 0));  // Nov 1 UTC
-  const STEP  = 3600_000;  // 1h
-  const EPS   = 0.60;      // within ~0.6 day of exact NM
+  const start = new Date(Date.UTC(year, 9, 1, 0, 0, 0));
+  const end = new Date(Date.UTC(year, 10, 1, 0, 0, 0));
+  const STEP = 3600_000;
+  const EPS = 0.60;
   let lastHit = null;
   for (let t = start.getTime(); t < end.getTime(); t += STEP){
     const age = moonAge(t);
-    if (age < EPS) lastHit = t; // keep the latest one in October
+    if (age < EPS) lastHit = t;
   }
   if (!lastHit) return null;
   const local = new Date(lastHit);
   return { date: local, dateKey: dKey(local) };
 }
-
-/* Countdown to NM */
 let targetDate = null;
 function setTargetToOctoberNM(){
   const now = new Date();
@@ -176,7 +163,6 @@ function setTargetToOctoberNM(){
   document.getElementById("nm-date").textContent = fmtLocal(targetDate);
 }
 setTargetToOctoberNM();
-
 function tick(){
   if(!targetDate){ return; }
   const now = new Date();
@@ -186,7 +172,7 @@ function tick(){
     document.getElementById("h").textContent="00";
     document.getElementById("m").textContent="00";
     document.getElementById("s").textContent="00";
-    document.querySelector(".sub").textContent = "OUT NOW — NEW MOON RELEASE";
+    document.querySelector(".sub").textContent = "PROTOCOL EXECUTED";
     return;
   }
   const d = Math.floor(diff/86400000);
@@ -199,8 +185,6 @@ function tick(){
   document.getElementById("s").textContent = pad2(s);
 }
 tick(); setInterval(tick, 1000);
-
-/* Spotlight follows the mouse (updates CSS vars) */
 const hero = document.getElementById("hero");
 const stack = document.getElementById("stack");
 hero.addEventListener("mousemove", (e)=>{
@@ -213,8 +197,6 @@ hero.addEventListener("mousemove", (e)=>{
 hero.addEventListener("mouseleave", ()=>{
   stack.style.setProperty('--mx', '50%'); stack.style.setProperty('--my', '40%');
 });
-
-/* Scroll-activated ticker + button toggle */
 const ticker = document.getElementById("ticker");
 const revealBtn = document.getElementById("revealBtn");
 let shown = false;
@@ -229,8 +211,6 @@ document.addEventListener("scroll", ()=>{
 });
 revealBtn.addEventListener("click", (e)=>{ e.preventDefault(); revealTicker(); });
 revealBtn.addEventListener("keyup", (e)=>{ if (e.key==="Enter"||e.key===" ") revealTicker(); });
-
-/* Progressive enhancement: if JS disabled, users will still see title/subtitle. */
 </script>
 </body>
 </html>
