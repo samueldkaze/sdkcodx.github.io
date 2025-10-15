@@ -1,216 +1,220 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="fr" data-rite="genesis">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>FRACTAL — New Moon Protocol</title>
-<style>
-  :root{
-    --bg:#020502; --ink:#00ff00; --muted:#006600; --hl:#8000ff;
-    --mx:50%; --my:40%;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0; background:var(--bg); color:var(--ink);
-    font:16px/1.45 'Courier New', monospace;
-    overflow-x:hidden;
-  }
-  .hero{
-    min-height:100svh; display:grid; place-items:center;
-    background:
-      radial-gradient(1600px 900px at 50% -10%, #030803 0%, #020202 55%, #000 100%),
-      #000;
-    position:relative; text-align:center;
-  }
-  .stack{
-    position:relative; padding:48px 20px;
-    --r: 200px;
-    -webkit-mask-image: radial-gradient(var(--r) var(--r) at var(--mx) var(--my), rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 70%, rgba(255,255,255,0.01) 100%);
-    mask-image: radial-gradient(var(--r) var(--r) at var(--mx) var(--my), rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 70%, rgba(255,255,255,0.01) 100%);
-    transition: mask-image .5s ease, -webkit-mask-image .5s ease;
-  }
-  .logo{
-    font-size: clamp(40px, 12vw, 132px);
-    font-weight:700; letter-spacing:.2em; text-transform:uppercase; line-height:.9; margin:0;
-    text-shadow: 0 0 10px var(--ink), 0 0 20px var(--ink), 0 0 30px var(--ink);
-    will-change: transform, text-shadow;
-  }
-  .logo::before{
-    content:attr(data-text); position:absolute; left:50%; top:50%; transform:translate(-50%, -50%);
-    color:transparent; -webkit-text-stroke:1px var(--ink);
-    animation: glitch 2s infinite;
-  }
-  @keyframes glitch{
-    0% { clip-path: inset(10% 0 80% 0); }
-    15% { clip-path: inset(0 0 90% 0); }
-    30% { clip-path: inset(20% 0 70% 0); }
-    45% { clip-path: inset(5% 0 85% 0); }
-    60% { clip-path: inset(30% 0 60% 0); }
-    75% { clip-path: inset(0 0 100% 0); }
-    100% { clip-path: inset(10% 0 80% 0); }
-  }
-  .sub{
-    margin-top:8px; color:var(--muted); letter-spacing:.14em; text-transform:uppercase;
-  }
-  .row{
-    display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:18px;
-    font-variant-numeric: tabular-nums;
-  }
-  .pill{
-    padding:8px 12px; border-radius:4px; border:1px solid var(--muted);
-    background:rgba(0,102,0,.1);
-  }
-  .pill.ok{ background:rgba(0,255,0,.15); border-color:var(--ink) }
-  .count{ display:flex; gap:8px; justify-content:center; margin-top:16px }
-  .tile{
-    min-width:70px; padding:10px 8px; border-radius:4px;
-    background:rgba(0,102,0,.1);
-    border:1px solid var(--muted);
-  }
-  .num{ font-size: clamp(24px, 6vw, 40px); font-weight:800; text-shadow:0 0 5px var(--ink) }
-  .lab{ font-size:.75rem; color:var(--muted); text-transform:uppercase }
-  .cta{
-    margin-top:20px; display:inline-flex; gap:8px; align-items:center;
-    padding:10px 16px; border-radius:4px; text-decoration:none; font-weight:800;
-    background:var(--hl); color:var(--bg);
-    border:1px solid var(--ink);
-  }
-  .ticker-wrap{
-    position:sticky; bottom:0; inset-inline:0; height:48px; overflow:hidden;
-    transform: translateY(100%); transition: transform .6s ease; z-index:10;
-    pointer-events:none;
-  }
-  .ticker-wrap.on{ transform: translateY(0%); }
-  .ticker{
-    display:flex; align-items:center; gap:20px; height:48px; white-space:nowrap;
-    background:rgba(0,0,0,.8); border-top:1px solid var(--ink);
-    animation: slide 15s linear infinite;
-  }
-  .tag{ color:var(--bg); font-weight:700; background:var(--ink); padding:4px 8px; border-radius:2px; margin:0 4px 0 12px }
-  .msg{ color:var(--ink); letter-spacing:.1em }
-  @keyframes slide{ to{ transform: translateX(-50%); } }
-  .spacer{ height:130svh; background: linear-gradient(180deg, transparent, rgba(0,255,0,.02), transparent) }
-  @media (max-width:480px){ .tile{ min-width:60px } }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SDKGATE — Samuel D Kaze</title>
+  <meta name="description" content="SDK FRACTAL GATE" />
+  <style>
+    :root{
+      --bg:#020306;  /* Nuit Noire */
+      --fg:#f0f3f8;  /* Écho Astrale */
+      --muted:#8997af; /* Sigil Estompé */
+      --accent:#7a60ff; /* Pulsation Violette */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family:'Courier New', Courier, monospace;
+      overflow:hidden;
+    }
+
+    /* Voile/ciel */
+    #sky{position:fixed; inset:0; display:block; z-index:-1}
+
+    /* Bande dates (centrée & lisible mobile) */
+    .archive{
+      position:fixed; top:0; left:0; right:0;
+      display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center;
+      padding:10px 14px;
+      background:linear-gradient(180deg, rgba(2,3,6,.9), rgba(2,3,6,.4));
+      backdrop-filter: blur(5px);
+      border-bottom:1px solid rgba(122,96,255,.2);
+      z-index:10
+    }
+    .archive b{opacity:.9; font-size:.95rem; color:var(--accent)}
+    .token{
+      border:1px solid rgba(122,96,255,.4); border-radius:999px;
+      padding:5px 12px; font-size:.78rem; color:var(--muted); text-transform:uppercase
+    }
+    .token .date{color:var(--fg); font-weight:bold}
+
+    /* Oracle (CENTRÉ) */
+    .oracle{
+      position:fixed; inset:0;
+      display:grid; place-items:center; text-align:center;
+      padding:0 24px; z-index:5
+    }
+    .line{
+      font-size:clamp(20px,5vw,50px);
+      letter-spacing:.06em; line-height:1.4;
+      text-shadow:0 0 20px rgba(122,96,255,.4), 0 0 40px rgba(122,96,255,.1)
+    }
+    .cursor{display:inline-block; width:.8ch}
+    .cursor::after{
+      content:"█"; color:var(--accent);
+      animation:pulse .9s steps(1) infinite
+    }
+    @keyframes pulse{50%{opacity:.25}}
+
+    /* Liens */
+    .portals{
+      position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+      display:flex; gap:24px; opacity:.9;
+      background:rgba(2,3,6,.4); backdrop-filter: blur(6px);
+      padding:8px 16px; border-radius:18px;
+      border:1px solid rgba(122,96,255,.3); z-index:10
+    }
+    .portals a{
+      color:var(--fg); text-decoration:none; font-size:.9rem;
+      opacity:.75; text-transform:uppercase
+    }
+    .portals a:hover{opacity:1; text-decoration:none; color:var(--accent)}
+
+    /* Pas d’instructions ni d’inversion : page contemplative */
+  </style>
 </head>
 <body>
+  <canvas id="sky"></canvas>
 
-<section class="hero" id="hero" aria-labelledby="title">
-  <div class="stack" id="stack">
-    <h1 class="logo" id="title" data-text="KONTROL">KONTROL</h1>
-    <div class="sub">PROTOCOL BETA — OCTOBER</div>
+  <div class="archive" id="archive"></div>
 
-    <div class="row">
-      <div class="pill">Date: <span id="nm-date">—</span></div>
-      <div class="pill ok" id="nm-badge">Anchor: NM</div>
-    </div>
-
-    <div class="count" role="timer" aria-live="polite" id="count">
-      <div class="tile"><div class="num" id="d">00</div><div class="lab">DAYS</div></div>
-      <div class="tile"><div class="num" id="h">00</div><div class="lab">HOURS</div></div>
-      <div class="tile"><div class="num" id="m">00</div><div class="lab">MINS</div></div>
-      <div class="tile"><div class="num" id="s">00</div><div class="lab">SECS</div></div>
-    </div>
-
-    <a href="#" class="cta" id="revealBtn" aria-controls="ticker" aria-expanded="false">
-      INITIATE PROTOCOL
-    </a>
+  <div class="oracle">
+    <div class="line"><span id="transmission"></span><span class="cursor"></span></div>
   </div>
-</section>
 
-<section class="spacer" aria-hidden="true"></section>
-
-<div class="ticker-wrap" id="ticker" role="region" aria-label="Release announcement">
-  <div class="ticker">
-    <span class="tag">01001111</span>
-    <span class="msg">KONTROL 01101011 01100001 01111010 01100101 00100000 01110011 01101001 01101110 01100111 01101100 01100101</span>
-    <span class="tag">01001111</span>
-    <span class="msg">KONTROL 01101011 01100001 01111010 01100101 00100000 01110011 01101001 01101110 01100111 01101100 01100101</span>
+  <div class="portals">
+    <a href="https://linktr.ee/sdkcodx" target="_blank" rel="noopener">LINKS</a>
+    <a href="https://instagram.com/sdkcodx" target="_blank" rel="noopener">INSTA</a>
+    <a href="https://soundcloud.com/sdkcodx" target="_blank" rel="noopener">SOUNDCLOUD</a>
+    <a href="https://youtube.com/@sdkcodx" target="_blank" rel="noopener">YOUTUBE</a>
   </div>
-</div>
 
 <script>
-/* JS pour la variante "glitch" */
-const SYNODIC = 29.530588853;
-const EPOCH_MS = Date.UTC(2000,0,6,18,14,0);
-const pad2 = n => n.toString().padStart(2,"0");
-const fmtLocal = d => `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())} ${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
-const dKey = d => `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
-function daysSinceEpochUTC(date){ const ms = date instanceof Date ? date.getTime() : date; return (ms - EPOCH_MS)/86400000; }
-function phaseFraction(date){ let f = (daysSinceEpochUTC(date)/SYNODIC) % 1; return f<0?f+1:f; }
-function moonAge(date){ return phaseFraction(date)*SYNODIC; }
-function lastNewMoonOfOctober(year){
-  const start = new Date(Date.UTC(year, 9, 1, 0, 0, 0));
-  const end = new Date(Date.UTC(year, 10, 1, 0, 0, 0));
-  const STEP = 3600_000;
-  const EPS = 0.60;
-  let lastHit = null;
-  for (let t = start.getTime(); t < end.getTime(); t += STEP){
-    const age = moonAge(t);
-    if (age < EPS) lastHit = t;
-  }
-  if (!lastHit) return null;
-  const local = new Date(lastHit);
-  return { date: local, dateKey: dKey(local) };
+/* =====================
+   MANIFESTE — V0.3 (autonome)
+   ===================== */
+const ARCANES = [
+  "⟁ SDK LAW ⟁",
+  "XXIII. ∞ WHAT YOU CREATE CONTAINS WHAT YOU ARE.",
+  "IV. ⌘ EVERY PATH IS A LIE UNTIL YOU WALK IT.",
+  "XIX. ☍ EVERY TEMPLE IS BUILT ON FORGOTTEN BONES.",
+  "IX. ⌖ PAIN IS THE ONLY MEMORY THAT NEVER LIES."
+];
+
+const SYNCOPES = [
+  { title: "KONTROL [SINGLE]", date: "OCT NUMOON" },
+  { title: "CRACKED & DUST [SINGLE]", date: "NOV NUMOON" },
+  { title: "SIGNAL LOGS 001 [DJSET]", date: "NOV FULLMOON" },
+  { title: "SUGAR EMPIRE [SINGLE]", date: "DEC NUMOON" }
+];
+
+/* =====================
+   NÉBULEUSE — animation (drift auto)
+   ===================== */
+const canvas = document.getElementById('sky');
+const ctx = canvas.getContext('2d');
+let W, H, DPR;
+function setupCanvas(){
+  DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+  W = canvas.width = Math.floor(innerWidth * DPR);
+  H = canvas.height = Math.floor(innerHeight * DPR);
+  canvas.style.width = innerWidth + 'px';
+  canvas.style.height = innerHeight + 'px';
 }
-let targetDate = null;
-function setTargetToOctoberNM(){
-  const now = new Date();
-  const nm = lastNewMoonOfOctober(now.getFullYear());
-  if (!nm){ document.getElementById("nm-date").textContent = "—"; return; }
-  targetDate = nm.date;
-  document.getElementById("nm-date").textContent = fmtLocal(targetDate);
+setupCanvas(); addEventListener('resize', setupCanvas);
+
+// fragments en orbite
+const fragments = Array.from({length: 48}, ()=>({
+  r: 1.0 + Math.random()*2.4,
+  orbit: 50 + Math.random()*Math.min(W,H)*.66,
+  speed: (0.00025 + Math.random()*0.0012) * (Math.random()<.5?-1:1),
+  phase: Math.random()*Math.PI*2,
+  hue: (220 + Math.random()*100)|0
+}));
+
+let t0 = performance.now(), tDrift = 0;
+function renderNebula(now){
+  const dt = now - t0; t0 = now;
+  tDrift += dt * 0.00008; // lente dérive globale
+
+  ctx.clearRect(0,0,W,H);
+  const cx = W/2, cy = H/2;
+
+  // halo
+  const g = ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W,H)*.72);
+  g.addColorStop(0, 'rgba(122,96,255,0.10)');
+  g.addColorStop(1, 'rgba(2,3,6,0.0)');
+  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+  fragments.forEach(p=>{
+    // dérive lente des vitesses et teintes (sans input)
+    const drift = 1 + 0.05*Math.sin(tDrift + p.orbit*0.001);
+    p.phase += p.speed * drift * dt;
+    p.hue = (p.hue + 0.002*dt) % 360;
+
+    const x = cx + Math.cos(p.phase) * p.orbit;
+    const y = cy + Math.sin(p.phase) * (p.orbit*0.55);
+
+    // sillage
+    ctx.beginPath();
+    ctx.arc(x,y, p.r*DPR*2.0, 0, Math.PI*2);
+    ctx.fillStyle = `hsla(${p.hue|0},78%,66%,.22)`;
+    ctx.fill();
+
+    // noyau
+    ctx.beginPath();
+    ctx.arc(x,y, p.r*DPR*0.9, 0, Math.PI*2);
+    ctx.fillStyle = `hsla(${p.hue|0},90%,82%,.96)`;
+    ctx.fill();
+  });
+
+  requestAnimationFrame(renderNebula);
 }
-setTargetToOctoberNM();
-function tick(){
-  if(!targetDate){ return; }
-  const now = new Date();
-  let diff = targetDate - now;
-  if (diff <= 0){
-    document.getElementById("d").textContent="00";
-    document.getElementById("h").textContent="00";
-    document.getElementById("m").textContent="00";
-    document.getElementById("s").textContent="00";
-    document.querySelector(".sub").textContent = "PROTOCOL EXECUTED";
-    return;
-  }
-  const d = Math.floor(diff/86400000);
-  const h = Math.floor((diff/3600000)%24);
-  const m = Math.floor((diff/60000)%60);
-  const s = Math.floor((diff/1000)%60);
-  document.getElementById("d").textContent = pad2(d);
-  document.getElementById("h").textContent = pad2(h);
-  document.getElementById("m").textContent = pad2(m);
-  document.getElementById("s").textContent = pad2(s);
+requestAnimationFrame(renderNebula);
+
+/* =====================
+   ORACLE — typewriter (boucle)
+   ===================== */
+const typedEl = document.getElementById('transmission');
+let iP = 0;
+function transmitArcane(){
+  const s = ARCANES[iP % ARCANES.length];
+  typedEl.textContent = '';
+  let i=0;
+  (function step(){
+    typedEl.textContent += s[i++]||'';
+    if(i<=s.length) setTimeout(step, 45);
+    else setTimeout(()=>{
+      (function erase(){
+        typedEl.textContent = s.slice(0, --i);
+        if(i>0) setTimeout(erase, 24);
+        else { iP++; setTimeout(transmitArcane, 1000); }
+      })();
+    }, 1100);
+  })();
 }
-tick(); setInterval(tick, 1000);
-const hero = document.getElementById("hero");
-const stack = document.getElementById("stack");
-hero.addEventListener("mousemove", (e)=>{
-  const r = hero.getBoundingClientRect();
-  const x = ((e.clientX - r.left)/r.width)*100;
-  const y = ((e.clientY - r.top)/r.height)*100;
-  stack.style.setProperty('--mx', x+'%');
-  stack.style.setProperty('--my', y+'%');
+setTimeout(transmitArcane, 500);
+
+/* =====================
+   ARCHIVE — affichage des dates
+   ===================== */
+const archiveRoot = document.getElementById('archive');
+const label = document.createElement('b');
+label.textContent = 'SYNCOPES';
+archiveRoot.appendChild(label);
+SYNCOPES.forEach(r=>{
+  const d = document.createElement('div');
+  d.className = 'token';
+  d.innerHTML = `<span class="date">${r.date}</span> : ${r.title}`;
+  archiveRoot.appendChild(d);
 });
-hero.addEventListener("mouseleave", ()=>{
-  stack.style.setProperty('--mx', '50%'); stack.style.setProperty('--my', '40%');
-});
-const ticker = document.getElementById("ticker");
-const revealBtn = document.getElementById("revealBtn");
-let shown = false;
-function revealTicker(){
-  if (shown) return;
-  ticker.classList.add("on"); shown = true;
-  revealBtn.setAttribute("aria-expanded","true");
-}
-document.addEventListener("scroll", ()=>{
-  const y = window.scrollY || document.documentElement.scrollTop;
-  if (y > 60) revealTicker();
-});
-revealBtn.addEventListener("click", (e)=>{ e.preventDefault(); revealTicker(); });
-revealBtn.addEventListener("keyup", (e)=>{ if (e.key==="Enter"||e.key===" ") revealTicker(); });
+
+/* =====================
+   AUCUNE INTERACTION UTILISATEUR
+   (pas de click, pas de clavier)
+   ===================== */
 </script>
 </body>
 </html>
